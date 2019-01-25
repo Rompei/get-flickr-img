@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"github.com/Rompei/imdl"
 	simplejson "github.com/bitly/go-simplejson"
+	"github.com/lon9/imdl"
 	fk "github.com/mncaudill/go-flickr"
 	"io"
 	"os"
@@ -95,7 +95,7 @@ func getImageURLs(req *fk.Request, page int, query string) ([]string, error) {
 		return nil, err
 	}
 
-	js, err := simplejson.NewJson(resp)
+	js, err := simplejson.NewJson([]byte(resp))
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,6 @@ func imdlDaemon(fnameCh chan string, errCh chan error, finishCh chan bool, dirNa
 		fp, err = os.Create("img_list.txt")
 		if err != nil {
 			panic(err)
-			return
 		}
 		defer fp.Close()
 	}
